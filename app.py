@@ -3,7 +3,12 @@ import streamlit as st
 
 from src.leitura import ler_excel
 from src.tratamento import verificar_dados
-from src.estatistica import calcular_estatisticas
+from src.estatistica import (
+    calcular_estatisticas, 
+    analisar_categorias, 
+    analisar_departamentos,
+    analisar_meses
+)
 from src.distribuicoes import analisar_distribuicao
 from src.anomalidades import detectar_anomalias
 from src.graficos import grafico_por_categoria, grafico_por_mes
@@ -55,6 +60,68 @@ if arquivo is not None:
     st.write(f"Variância: {estatisticas['variancia']:,.2f}")
     st.write(f"Desvio padrão: R$ {estatisticas['desvio_padrao']:,.2f}")
 
+    # Função para analisar categorias de um DataFrame.
+
+    categorias = analisar_categorias(df)
+
+    st.subheader("Análise por categoria")
+
+    st.write(
+        f"Categoria com maior gasto: "
+        f"{categorias['maior_categoria']}"
+    )
+
+    st.write(
+        f"Valor gasto na categoria: "
+        f"R$ {categorias['maior_valor']:,.2f}"
+    )
+
+    st.dataframe(
+        categorias["por_categoria"],
+        use_container_width=True
+    )
+
+    # Função para analisar departamentos de um DataFrame.
+
+    departamentos = analisar_departamentos(df)
+
+    st.subheader("Análise por departamento")
+
+    st.write(
+        f"Departamento com maior gasto: "
+        f"{departamentos['maior_departamento']}"
+    )
+
+    st.write(
+        f"Valor gasto no departamento: "
+        f"R$ {departamentos['maior_valor']:,.2f}"
+    )
+
+    st.dataframe(
+        departamentos["por_departamento"],
+        use_container_width=True
+    )
+
+    # Função para analisar meses de um DataFrame.
+
+    meses = analisar_meses(df)
+
+    st.subheader("Análise por mês")
+
+    st.write(
+        f"Mês com maior gasto: "
+        f"{meses['maior_mes']}"
+    )
+
+    st.write(
+        f"Valor gasto no mês: "
+        f"R$ {meses['maior_valor']:,.2f}"
+    )
+
+    st.dataframe(
+        meses["por_mes"],
+        use_container_width=True
+    )
 
     #Função para analisar a distribuição dos dados de um DataFrame.
 

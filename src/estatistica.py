@@ -2,7 +2,6 @@ import pandas as pd
 
 
 def calcular_estatisticas(df):
-    
     valores = pd.to_numeric(df["Valor"], errors="coerce").dropna()
 
     estatisticas = {
@@ -17,3 +16,27 @@ def calcular_estatisticas(df):
     }
 
     return estatisticas
+
+
+def analisar_categorias(df):
+    dados = df.groupby("Categoria")["Valor"].sum()
+
+    dados = dados.sort_values(ascending=False)
+
+    return {
+        "por_categoria": dados,
+        "maior_categoria": dados.index[0],
+        "maior_valor": dados.iloc[0]
+    }
+
+
+def analisar_departamentos(df):
+    dados = df.groupby("Departamento")["Valor"].sum()
+
+    dados = dados.sort_values(ascending=False)
+
+    return {
+        "por_departamento": dados,
+        "maior_departamento": dados.index[0],
+        "maior_valor": dados.iloc[0]
+    }
