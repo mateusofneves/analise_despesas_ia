@@ -1,3 +1,16 @@
+# Python
 __pycache__/
 *.pyc
-*.pyo
+
+# Ambiente virtual
+venv/
+.venv/
+
+# Variáveis de ambiente / chaves
+.env
+
+# Editor
+.vscode/
+
+# Sistema operacional
+.DS_Store
