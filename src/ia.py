@@ -23,6 +23,7 @@ def perguntar_ia(pergunta):
 
 
 def gerar_relatorio(dados):
+
     prompt = f"""
 Você é um analista administrativo especializado em análise
 estatística e financeira de despesas empresariais.
@@ -40,7 +41,9 @@ IMPORTANTE:
 - Utilize os valores fornecidos para justificar suas conclusões.
 - Seja objetivo e profissional.
 
+========================
 ESTATÍSTICAS GERAIS
+========================
 
 Quantidade de despesas: {dados['quantidade']}
 Total gasto: R$ {dados['total']:.2f}
@@ -51,7 +54,9 @@ Maior despesa: R$ {dados['maximo']:.2f}
 Variância: {dados['variancia']:.2f}
 Desvio padrão: R$ {dados['desvio_padrao']:.2f}
 
+========================
 DISTRIBUIÇÃO
+========================
 
 Classificação da distribuição:
 {dados['distribuicao']}
@@ -59,15 +64,26 @@ Classificação da distribuição:
 p-valor do teste de Shapiro-Wilk:
 {dados['p_valor_shapiro']:.4f}
 
+========================
 ANOMALIAS
+========================
 
 Quantidade de possíveis anomalias:
 {dados['quantidade_anomalias']}
 
-Limite superior utilizado:
+Limite inferior:
+R$ {dados['limite_inferior']:.2f}
+
+Limite superior:
 R$ {dados['limite_superior']:.2f}
 
+Possíveis despesas anômalas encontradas:
+
+{dados['anomalias']}
+
+========================
 CATEGORIAS
+========================
 
 Categoria com maior gasto:
 {dados['maior_categoria']}
@@ -78,7 +94,9 @@ R$ {dados['maior_categoria_valor']:.2f}
 Ranking de categorias:
 {dados['categorias']}
 
+========================
 DEPARTAMENTOS
+========================
 
 Departamento com maior gasto:
 {dados['maior_departamento']}
@@ -89,7 +107,9 @@ R$ {dados['maior_departamento_valor']:.2f}
 Ranking de departamentos:
 {dados['departamentos']}
 
+========================
 ANÁLISE MENSAL
+========================
 
 Mês com maior gasto:
 {dados['maior_mes']}
@@ -100,7 +120,9 @@ R$ {dados['maior_mes_valor']:.2f}
 Gastos por mês:
 {dados['meses']}
 
-ESTRUTURA DO RELATÓRIO
+========================
+ANÁLISE
+========================
 
 Produza o relatório com as seguintes seções:
 
@@ -132,16 +154,17 @@ os principais resultados encontrados.
 
 6. Evolução mensal
 
-Identifique o mês com maior gasto e descreva o comportamento
-dos gastos ao longo do período analisado.
+Analise o comportamento dos gastos ao longo dos meses
+e destaque períodos de maior ou menor gasto.
 
 7. Possíveis anomalias
 
-Explique a quantidade de possíveis anomalias e o limite
-estatístico utilizado.
+Explique a quantidade de possíveis anomalias,
+os limites estatísticos utilizados e cite as principais
+despesas identificadas.
 
 Deixe claro que anomalias são pontos que merecem investigação,
-não evidências de irregularidade.
+não evidências de fraude ou irregularidade.
 
 8. Pontos de atenção
 
