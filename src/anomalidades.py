@@ -2,8 +2,12 @@ import pandas as pd
 
 
 def detectar_anomalias(df):
-    
-    valores = pd.to_numeric(df["Valor"], errors="coerce")
+    df = df.copy()
+
+    valores = pd.to_numeric(
+        df["Valor"],
+        errors="coerce"
+    )
 
     # Calcula os quartis
     q1 = valores.quantile(0.25)
