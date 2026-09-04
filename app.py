@@ -190,6 +190,7 @@ if arquivo is not None:
     # Consolida os dados para enviar à IA e gerar o relatório administrativo.
     
     dados_ia = {
+        # Estatísticas gerais
         "quantidade": estatisticas["quantidade"],
         "total": estatisticas["total"],
         "media": estatisticas["media"],
@@ -198,12 +199,29 @@ if arquivo is not None:
         "maximo": estatisticas["maximo"],
         "variancia": estatisticas["variancia"],
         "desvio_padrao": estatisticas["desvio_padrao"],
-    
+
+        # Distribuição
         "distribuicao": distribuicao["distribuicao"],
         "p_valor_shapiro": distribuicao["p_valor_shapiro"],
-    
+
+        # Anomalias
         "quantidade_anomalias": len(anomalias["anomalias"]),
-        "limite_superior": anomalias["limite_superior"]
+        "limite_superior": anomalias["limite_superior"],
+
+        # Categorias
+        "maior_categoria": categorias["maior_categoria"],
+        "maior_categoria_valor": categorias["maior_valor"],
+        "categorias": categorias["por_categoria"].to_dict(),
+
+        # Departamentos
+        "maior_departamento": departamentos["maior_departamento"],
+        "maior_departamento_valor": departamentos["maior_valor"],
+        "departamentos": departamentos["por_departamento"].to_dict(),
+
+        # Meses
+        "maior_mes": meses["maior_mes"],
+        "maior_mes_valor": meses["maior_valor"],
+        "meses": meses["por_mes"].to_dict()
     }
 
     # Função para gerar relatório administrativo com IA.

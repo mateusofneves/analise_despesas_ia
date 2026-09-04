@@ -40,3 +40,14 @@ def analisar_departamentos(df):
         "maior_departamento": dados.index[0],
         "maior_valor": dados.iloc[0]
     }
+
+def analisar_meses(df):
+    dados = df.groupby("Mês")["Valor"].sum()
+
+    dados = dados.sort_values(ascending=False)
+
+    return {
+        "por_mes": dados,
+        "maior_mes": dados.index[0],
+        "maior_valor": dados.iloc[0]
+    }
