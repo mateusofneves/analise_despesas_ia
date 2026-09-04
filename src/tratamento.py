@@ -1,5 +1,6 @@
 import pandas as pd
 
+
 def verificar_dados(df):
 
     problemas = {}

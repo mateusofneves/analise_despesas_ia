@@ -1,11 +1,14 @@
 import streamlit as st
 
+
 from src.leitura import ler_excel
 from src.tratamento import verificar_dados
 from src.estatistica import calcular_estatisticas
 from src.distribuicoes import analisar_distribuicao
 from src.anomalidades import detectar_anomalias
 from src.graficos import grafico_por_categoria, grafico_por_mes
+from src.ia import gerar_relatorio
+
 
 st.title("Análise de Despesas com IA")
 
@@ -108,7 +111,7 @@ if arquivo is not None:
         st.success("Nenhuma possível anomalia encontrada.")
 
     # Função para gerar gráficos de um DataFrame.
-    
+
     st.subheader("Visualização das despesas")
 
     fig_categoria = grafico_por_categoria(df)
@@ -116,3 +119,33 @@ if arquivo is not None:
 
     fig_mes = grafico_por_mes(df)
     st.pyplot(fig_mes)
+
+    # Consolida os dados para enviar à IA e gerar o relatório administrativo.
+    
+    dados_ia = {
+        "quantidade": estatisticas["quantidade"],
+        "total": estatisticas["total"],
+        "media": estatisticas["media"],
+        "mediana": estatisticas["mediana"],
+        "minimo": estatisticas["minimo"],
+        "maximo": estatisticas["maximo"],
+        "variancia": estatisticas["variancia"],
+        "desvio_padrao": estatisticas["desvio_padrao"],
+    
+        "distribuicao": distribuicao["distribuicao"],
+        "p_valor_shapiro": distribuicao["p_valor_shapiro"],
+    
+        "quantidade_anomalias": len(anomalias["anomalias"]),
+        "limite_superior": anomalias["limite_superior"]
+    }
+
+    # Função para gerar relatório administrativo com IA.
+
+    st.subheader("Relatório com Inteligência Artificial")
+
+    if st.button("Gerar relatório com IA"):
+        with st.spinner("A IA está analisando os resultados..."):
+            relatorio = gerar_relatorio(dados_ia)
+
+        st.subheader("Relatório administrativo")
+        st.write(relatorio)
