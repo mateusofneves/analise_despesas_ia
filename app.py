@@ -5,6 +5,7 @@ from src.tratamento import verificar_dados
 from src.estatistica import calcular_estatisticas
 from src.distribuicoes import analisar_distribuicao
 from src.anomalidades import detectar_anomalias
+from src.graficos import grafico_por_categoria, grafico_por_mes
 
 st.title("Análise de Despesas com IA")
 
@@ -15,9 +16,9 @@ arquivo = st.file_uploader(
 
 if arquivo is not None:
 
-    """
-    Função para ler um arquivo Excel e retornar um DataFrame.
-    """
+
+    # Função para ler um arquivo Excel e retornar um DataFrame.
+
     df = ler_excel(arquivo)
 
     st.subheader("Dados da planilha")
@@ -35,9 +36,9 @@ if arquivo is not None:
         for problema, detalhes in problemas.items():
             st.write(f"- {problema}: {detalhes}")
 
-    """
-    Função para calcular estatísticas básicas de um DataFrame.
-    """
+
+    # Função para calcular estatísticas básicas de um DataFrame.
+
     estatisticas = calcular_estatisticas(df)
 
     st.subheader("Estatística das despesas")
@@ -51,9 +52,9 @@ if arquivo is not None:
     st.write(f"Variância: {estatisticas['variancia']:,.2f}")
     st.write(f"Desvio padrão: R$ {estatisticas['desvio_padrao']:,.2f}")
 
-    """
-    Função para analisar a distribuição dos dados de um DataFrame.
-    """
+
+    #Função para analisar a distribuição dos dados de um DataFrame.
+
     distribuicao = analisar_distribuicao(df)
 
     st.subheader("Análise da distribuição")
@@ -72,9 +73,8 @@ if arquivo is not None:
         f"{distribuicao['p_valor_shapiro']:.4f}"
     )
 
-    """
-    Função para detectar anomalias em um DataFrame.
-    """
+    # Função para detectar anomalias em um DataFrame.
+
     anomalias = detectar_anomalias(df)
 
     st.subheader("Detecção de anomalias")
@@ -106,3 +106,13 @@ if arquivo is not None:
         )
     else:
         st.success("Nenhuma possível anomalia encontrada.")
+
+    # Função para gerar gráficos de um DataFrame.
+    
+    st.subheader("Visualização das despesas")
+
+    fig_categoria = grafico_por_categoria(df)
+    st.pyplot(fig_categoria)
+
+    fig_mes = grafico_por_mes(df)
+    st.pyplot(fig_mes)
