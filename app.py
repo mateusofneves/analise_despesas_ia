@@ -2,6 +2,7 @@ import streamlit as st
 
 from src.leitura import ler_excel
 from src.tratamento import verificar_dados
+from src.estatistica import calcular_estatisticas
 
 st.title("Análise de Despesas com IA")
 

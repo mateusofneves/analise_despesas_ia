@@ -1,6 +1,7 @@
 import pandas as pd
 
 def ler_excel(arquivo):
+    
     """
     Lê um arquivo Excel e retorna um DataFrame do pandas.
 
