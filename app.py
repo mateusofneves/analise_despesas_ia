@@ -4,6 +4,7 @@ from src.leitura import ler_excel
 from src.tratamento import verificar_dados
 from src.estatistica import calcular_estatisticas
 from src.distribuicoes import analisar_distribuicao
+from src.anomalidades import detectar_anomalias
 
 st.title("Análise de Despesas com IA")
 
@@ -71,3 +72,37 @@ if arquivo is not None:
         f"{distribuicao['p_valor_shapiro']:.4f}"
     )
 
+    """
+    Função para detectar anomalias em um DataFrame.
+    """
+    anomalias = detectar_anomalias(df)
+
+    st.subheader("Detecção de anomalias")
+
+    st.write(f"Q1: R$ {anomalias['q1']:,.2f}")
+    st.write(f"Q3: R$ {anomalias['q3']:,.2f}")
+    st.write(f"IQR: R$ {anomalias['iqr']:,.2f}")
+
+    st.write(
+        f"Limite inferior: R$ "
+        f"{anomalias['limite_inferior']:,.2f}"
+    )
+
+    st.write(
+        f"Limite superior: R$ "
+        f"{anomalias['limite_superior']:,.2f}"
+    )
+
+    st.write(
+        f"Quantidade de possíveis anomalias: "
+        f"{len(anomalias['anomalias'])}"
+    )
+
+    if len(anomalias["anomalias"]) > 0:
+        st.write("Despesas identificadas como possíveis anomalias:")
+        st.dataframe(
+            anomalias["anomalias"],
+            use_container_width=True
+        )
+    else:
+        st.success("Nenhuma possível anomalia encontrada.")

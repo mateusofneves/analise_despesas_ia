@@ -4,6 +4,7 @@ from scipy import stats
 
 
 def analisar_distribuicao(df):
+    
     valores = pd.to_numeric(df["Valor"], errors="coerce").dropna()
 
     media = valores.mean()
